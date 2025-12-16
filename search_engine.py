@@ -7,18 +7,15 @@ import os
 from PIL import Image, ImageTk
 from io import BytesIO
 
-# ---------------- LOAD ENV ----------------
 load_dotenv()
 API_KEY = os.getenv("ADMIN_API_KEY")
 CSE_ID  = os.getenv("ADMIN_CSE_ID")
 
-# ---------------- CLEAR RESULTS ----------------
 def clear_results():
     for w in results_frame.winfo_children():
         w.destroy()
     result_text.delete(1.0, tk.END)
 
-# ---------------- YOUTUBE SEARCH ----------------
 def search_youtube():
     query = entry.get().strip()
     clear_results()
@@ -45,7 +42,6 @@ def search_youtube():
     for item in data.get("items", []):
         show_video(item)
 
-# ---------------- SHOW VIDEO ----------------
 def show_video(item):
     title = item["snippet"]["title"]
     video_id = item["id"]["videoId"]
@@ -73,7 +69,6 @@ def show_video(item):
     text.pack(anchor="w")
     text.bind("<Button-1>", lambda e: webbrowser.open(video_url))
 
-# ---------------- WEB SEARCH ----------------
 def search_web():
     query = entry.get().strip()
     clear_results()
@@ -119,7 +114,6 @@ def search_web():
         snippet = tk.Label(frame, text=item["snippet"], wraplength=650)
         snippet.pack(anchor="w")
 
-# ---------------- GUI ----------------
 root = tk.Tk()
 root.title("Mini Search Engine")
 root.geometry("800x550")
